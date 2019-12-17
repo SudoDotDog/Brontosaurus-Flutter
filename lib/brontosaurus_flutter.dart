@@ -20,6 +20,7 @@ class BrontosaurusView extends StatelessWidget {
     webview.onUrlChanged.listen((state) {
       final bool redirected = state.indexOf(server) == -1;
       if (redirected) {
+        webview.close();
         final int startFrom = "js://redirect?token=".length;
         final String token = state.substring(startFrom);
         print(token);
