@@ -96,6 +96,18 @@ class Token {
     return this.tags + this.organizationTags;
   }
 
+  int get expireAt {
+    return _header["expireAt"];
+  }
+
+  int get issuedAt {
+    return _header["issuedAt"];
+  }
+
+  String get applicationKey {
+    return _header["key"];
+  }
+
   String _decodeBase64(String input) {
     final base64Decoder = Base64Decoder();
 
@@ -105,5 +117,13 @@ class Token {
           base64Decoder.convert(input + "=" * (4 - difference)));
     }
     return String.fromCharCodes(base64Decoder.convert(input));
+  }
+
+  bool sameApplication(String key) {
+    return this.applicationKey == key;
+  }
+
+  bool validate() {
+    return DateTime.now().millisecondsSinceEpoch < this.expireAt;
   }
 }

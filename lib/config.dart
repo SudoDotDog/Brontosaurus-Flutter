@@ -1,5 +1,7 @@
 library brontosaurus_flutter;
 
+import 'package:brontosaurus_flutter/token.dart';
+
 class Brontosaurus {
   static final Brontosaurus _instance = Brontosaurus();
 
@@ -7,8 +9,27 @@ class Brontosaurus {
     return _instance;
   }
 
+  static Token hard() {
+    final Token token = _instance._getToken();
+    if (token == null) {
+      _instance.executeOut();
+      return null;
+    }
+    if (!token.validate()) {
+      _instance.executeOut();
+      return null;
+    }
+    return token;
+  }
+
+  static void logout() {
+    _instance.executeOut();
+    return;
+  }
+
   void Function() _onNavigateOut;
   void Function() _onNavigateIn;
+  Token _token;
 
   Brontosaurus setNavigateOut(void Function() onNavigateOut) {
     _onNavigateOut = onNavigateOut;
@@ -30,5 +51,20 @@ class Brontosaurus {
     if (_onNavigateOut != null) {
       _onNavigateOut();
     }
+  }
+
+  Brontosaurus setRawToken(String raw) {
+    final Token token = Token.create(raw);
+    _token = token;
+    return this;
+  }
+
+  Brontosaurus setToken(Token token) {
+    _token = token;
+    return this;
+  }
+
+  Token _getToken() {
+    return _token;
   }
 }
