@@ -4,35 +4,40 @@ import 'package:flutter/material.dart';
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
-  MyApp();
-
-  @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: LoggedInPage(),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-
-  final String title;
-
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
+class LoggedInPage extends StatelessWidget {
+  Widget build(BuildContext context) {
+    if (!Brontosaurus.validate()) {
+      Future.delayed(
+          Duration(seconds: 1),
+          () => Navigator.pushReplacement(
+              context, MaterialPageRoute(builder: (context) => LoginPage())));
+    }
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Logged In'),
+      ),
+    );
+  }
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  @override
+class LoginPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BrontosaurusView(
       server: 'https://google.com',
-      application: 'Test',
+      application: 'TEST',
+      next: () => Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (context) => LoggedInPage())),
     );
   }
 }
