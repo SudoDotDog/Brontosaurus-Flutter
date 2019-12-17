@@ -27,6 +27,7 @@ class BrontosaurusView extends StatelessWidget {
         final int startFrom = "js://redirect?token=".length;
         final String raw = state.substring(startFrom);
         Brontosaurus.instance().setRawToken(raw);
+        Brontosaurus.store(raw);
         this.next();
       }
     });

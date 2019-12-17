@@ -1,3 +1,5 @@
+import 'package:shared_preferences/shared_preferences.dart';
+
 import 'token.dart';
 
 class Brontosaurus {
@@ -5,6 +7,21 @@ class Brontosaurus {
 
   static Brontosaurus instance() {
     return _instance;
+  }
+
+  static Future<bool> init() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final String raw = prefs.getString('brontosaurus-token');
+    if (raw == null) {
+      return false;
+    }
+    instance().setRawToken(raw);
+    return true;
+  }
+
+  static Future<void> store(String raw) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('brontosaurus-token', raw);
   }
 
   static Token ensure(void Function() ifNotValid) {
