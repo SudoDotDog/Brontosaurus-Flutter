@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
 
 class LoggedInPage extends StatelessWidget {
   Widget build(BuildContext context) {
-    if (!Brontosaurus.validate()) {
+    if (!Brontosaurus.validateToken()) {
       Future.delayed(
           Duration(seconds: 1),
           () => Navigator.pushReplacement(

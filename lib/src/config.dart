@@ -16,11 +16,10 @@ class Brontosaurus {
     if (raw == null) {
       return false;
     }
-    instance().setRawToken(raw);
-    if (!instance()._getToken().validate()) {
-      return false;
+    if (instance().setRawToken(raw).validate()) {
+      return true;
     }
-    return true;
+    return false;
   }
 
   static Future<void> store(String raw) async {
@@ -29,7 +28,7 @@ class Brontosaurus {
   }
 
   static Token ensure(void Function() ifNotValid) {
-    if (Brontosaurus.validate()) {
+    if (Brontosaurus.validateToken()) {
       final Token token = _instance._getToken();
       return token;
     }
@@ -37,7 +36,7 @@ class Brontosaurus {
     return null;
   }
 
-  static bool validate() {
+  static bool validateToken() {
     final Token token = _instance._getToken();
     if (token == null) {
       return false;
@@ -63,5 +62,15 @@ class Brontosaurus {
 
   Token _getToken() {
     return _token;
+  }
+
+  bool validate() {
+    if (_token == null) {
+      return false;
+    }
+    if (!_token.validate()) {
+      return false;
+    }
+    return true;
   }
 }
