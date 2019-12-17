@@ -12,10 +12,14 @@ class Brontosaurus {
   static Future<bool> init() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final String raw = prefs.getString('brontosaurus-token');
+    print(raw);
     if (raw == null) {
       return false;
     }
     instance().setRawToken(raw);
+    if (!instance()._getToken().validate()) {
+      return false;
+    }
     return true;
   }
 
