@@ -7,9 +7,24 @@ class Brontosaurus {
     return _instance;
   }
 
-  static Token ensure() {
+  static Token ensure(void Function() ifNotValid) {
+    if (Brontosaurus.validate()) {
+      final Token token = _instance._getToken();
+      return token;
+    }
+    ifNotValid();
+    return null;
+  }
+
+  static bool validate() {
     final Token token = _instance._getToken();
-    return token;
+    if (token == null) {
+      return false;
+    }
+    if (!token.validate()) {
+      return false;
+    }
+    return true;
   }
 
   Token _token;

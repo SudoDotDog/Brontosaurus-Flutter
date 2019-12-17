@@ -6,11 +6,13 @@ import 'config.dart';
 class BrontosaurusView extends StatelessWidget {
   final String server;
   final String application;
+  final void Function() next;
 
   BrontosaurusView({
     Key key,
     @required this.server,
     @required this.application,
+    @required this.next,
   }) : super(key: key) {
     _init();
   }
@@ -24,7 +26,8 @@ class BrontosaurusView extends StatelessWidget {
         webview.close();
         final int startFrom = "js://redirect?token=".length;
         final String raw = state.substring(startFrom);
-        print(raw);
+        Brontosaurus.instance().setRawToken(raw);
+        this.next();
       }
     });
   }
