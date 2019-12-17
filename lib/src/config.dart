@@ -1,6 +1,4 @@
-library brontosaurus_flutter;
-
-import 'package:brontosaurus_flutter/token.dart';
+import './token.dart';
 
 class Brontosaurus {
   static final Brontosaurus _instance = Brontosaurus();

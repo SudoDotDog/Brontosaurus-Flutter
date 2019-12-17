@@ -1,5 +1,3 @@
-library brontosaurus_flutter;
-
 import 'dart:convert';
 
 class Token {
