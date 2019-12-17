@@ -15,14 +15,22 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class LoggedInPage extends StatelessWidget {
-  Widget build(BuildContext context) {
+class LoggedInPage extends StatefulWidget {
+  @override
+  LoggedInPageState createState() => LoggedInPageState();
+}
+
+class LoggedInPageState extends State<LoggedInPage> {
+  @override
+  void initState() {
+    super.initState();
     if (!Brontosaurus.validateToken()) {
-      Future.delayed(
-          Duration(seconds: 1),
-          () => Navigator.pushReplacement(
-              context, MaterialPageRoute(builder: (context) => LoginPage())));
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (context) => LoginPage()));
     }
+  }
+
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('Logged In'),
