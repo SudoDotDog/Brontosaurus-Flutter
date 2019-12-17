@@ -1,5 +1,6 @@
 library brontosaurus_flutter;
 
+import 'package:brontosaurus_flutter/config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 
@@ -8,9 +9,10 @@ class BrontosaurusView extends StatelessWidget {
   final String application;
 
   BrontosaurusView({
+    Key key,
     @required this.server,
     @required this.application,
-  }) {
+  }) : super(key: key) {
     _init();
   }
 
@@ -23,7 +25,7 @@ class BrontosaurusView extends StatelessWidget {
         webview.close();
         final int startFrom = "js://redirect?token=".length;
         final String token = state.substring(startFrom);
-        print(token);
+        Brontosaurus.instance().exectueIn();
       }
     });
   }
