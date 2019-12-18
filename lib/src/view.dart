@@ -11,6 +11,7 @@ class BrontosaurusView extends StatefulWidget {
   final void Function() next;
 
   final Widget appBar;
+  final Widget placeholder;
 
   BrontosaurusView({
     Key key,
@@ -18,6 +19,7 @@ class BrontosaurusView extends StatefulWidget {
     @required this.application,
     @required this.next,
     this.appBar,
+    this.placeholder,
   }) : super(key: key);
 
   @override
@@ -69,6 +71,9 @@ class BrontosaurusViewStates extends State<BrontosaurusView> {
   @override
   Widget build(BuildContext context) {
     if (!shouldShow) {
+      if (widget.placeholder != null) {
+        return widget.placeholder;
+      }
       return Container();
     }
     return WebviewScaffold(

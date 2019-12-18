@@ -5,3 +5,8 @@
 ## 0.1.1
 
 - Use Plugin package type
+
+## 0.1.2
+
+- Fix init showing status bug
+- Add placeholder function
