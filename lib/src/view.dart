@@ -27,7 +27,7 @@ class BrontosaurusView extends StatefulWidget {
 }
 
 class BrontosaurusViewStates extends State<BrontosaurusView> {
-  bool shouldShow = true;
+  bool shouldShow = false;
   @override
   void initState() {
     super.initState();
