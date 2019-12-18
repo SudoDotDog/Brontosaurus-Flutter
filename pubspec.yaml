@@ -1,7 +1,6 @@
 name: brontosaurus_flutter
 description: ":iphone: Flutter package for Brontosaurus"
 version: 0.1.0
-author: WMXPY
 homepage: https://github.com/SudoDotDog/Brontosaurus-Flutter
 
 environment:
