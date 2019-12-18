@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 
@@ -8,11 +10,14 @@ class BrontosaurusView extends StatefulWidget {
   final String application;
   final void Function() next;
 
+  final Widget appBar;
+
   BrontosaurusView({
     Key key,
     @required this.server,
     @required this.application,
     @required this.next,
+    this.appBar,
   }) : super(key: key);
 
   @override
@@ -22,7 +27,7 @@ class BrontosaurusView extends StatefulWidget {
 }
 
 class BrontosaurusViewStates extends State<BrontosaurusView> {
-  bool shouldShow = false;
+  bool shouldShow = true;
   @override
   void initState() {
     super.initState();
@@ -57,14 +62,21 @@ class BrontosaurusViewStates extends State<BrontosaurusView> {
     return widget.server + '?key=' + widget.application + '&cb=js://redirect';
   }
 
+  bool _isAndroid() {
+    return Platform.isAndroid;
+  }
+
   @override
   Widget build(BuildContext context) {
     if (!shouldShow) {
       return Container();
     }
     return WebviewScaffold(
+      appBar: widget.appBar,
       url: _buildUrl(),
-      resizeToAvoidBottomInset: true,
+      enableAppScheme: false,
+      scrollBar: false,
+      resizeToAvoidBottomInset: _isAndroid(),
     );
   }
 }

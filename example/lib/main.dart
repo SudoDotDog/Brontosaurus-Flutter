@@ -25,8 +25,12 @@ class LoggedInPageState extends State<LoggedInPage> {
   void initState() {
     super.initState();
     if (!Brontosaurus.validateToken()) {
-      Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => LoginPage()));
+      Future(() {
+        Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (context) => LoginPage()));
+      });
+    } else {
+      Brontosaurus.reset();
     }
   }
 
@@ -42,10 +46,15 @@ class LoggedInPageState extends State<LoggedInPage> {
 class LoginPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BrontosaurusView(
+      appBar: AppBar(
+        title: Text('Login'),
+      ),
       server: 'https://google.com',
       application: 'TEST',
-      next: () => Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => LoggedInPage())),
+      next: () {
+        Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (context) => LoggedInPage()));
+      },
     );
   }
 }
