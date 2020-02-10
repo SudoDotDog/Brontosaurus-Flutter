@@ -45,15 +45,26 @@ class LoggedInPageState extends State<LoggedInPage> {
 
 class LoginPage extends StatelessWidget {
   Widget build(BuildContext context) {
-    return BrontosaurusView(
+    // return BrontosaurusView(
+    //   appBar: AppBar(
+    //     title: Text('Login'),
+    //   ),
+    //   server: 'https://example.com',
+    //   application: 'Example',
+    //   next: () {
+    //     Navigator.pushReplacement(
+    //         context, MaterialPageRoute(builder: (context) => LoggedInPage()));
+    //   },
+    // );
+
+    return BrontosaurusViewLite(
       appBar: AppBar(
         title: Text('Login'),
       ),
-      server: 'https://google.com',
-      application: 'TEST',
-      next: () {
-        Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => LoggedInPage()));
+      server: 'https://example.com',
+      application: 'Example',
+      next: (String token) {
+        print(token);
       },
     );
   }
