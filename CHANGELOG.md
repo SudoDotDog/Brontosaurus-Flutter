@@ -10,3 +10,7 @@
 
 - Fix init showing status bug
 - Add placeholder function
+
+## 0.1.3
+
+- Add Brontosaurus Lite View
