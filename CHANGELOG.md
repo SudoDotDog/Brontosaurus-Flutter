@@ -14,3 +14,9 @@
 ## 0.1.3
 
 - Add Brontosaurus Lite View
+
+## 1.0.0
+
+- Release first 1.0.0 version
+- Add new definition
+- Use modifies token pattern

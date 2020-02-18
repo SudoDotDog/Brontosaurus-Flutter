@@ -45,6 +45,10 @@ class Token {
     return _body["beacons"];
   }
 
+  List<String> get modifies {
+    return _body["modifies"];
+  }
+
   String get username {
     return _body["username"];
   }
