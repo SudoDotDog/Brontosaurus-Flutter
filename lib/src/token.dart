@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:brontosaurus_flutter/src/declare.dart';
+
 class Token {
   static Token create(String raw) {
     return Token(raw);
@@ -51,6 +53,10 @@ class Token {
 
   String get username {
     return _body["username"];
+  }
+
+  String get namespace {
+    return _body["namespace"];
   }
 
   String get displayName {
@@ -110,6 +116,22 @@ class Token {
     return _header["key"];
   }
 
+  String getCombined() {
+    return this._joinCombined('/');
+  }
+
+  String getURLFriendlyCombined() {
+    return this._joinCombined('_');
+  }
+
+  bool sameApplication(String key) {
+    return this.applicationKey == key;
+  }
+
+  bool validate() {
+    return DateTime.now().millisecondsSinceEpoch < this.expireAt;
+  }
+
   String _decodeBase64(String input) {
     final base64Decoder = Base64Decoder();
 
@@ -121,11 +143,11 @@ class Token {
     return String.fromCharCodes(base64Decoder.convert(input));
   }
 
-  bool sameApplication(String key) {
-    return this.applicationKey == key;
-  }
+  String _joinCombined(String separator) {
+    if (this.namespace == DefaultBrontosaurusNamespace.DEFAULT) {
+      return this.username;
+    }
 
-  bool validate() {
-    return DateTime.now().millisecondsSinceEpoch < this.expireAt;
+    return "${this.namespace}$separator${this.username}";
   }
 }
