@@ -24,3 +24,8 @@
 ## 1.1.0
 
 -   Add namespace feature
+
+## 1.2.0
+
+-   Add parse namespace combined feature
+-   Fix null namespace parse

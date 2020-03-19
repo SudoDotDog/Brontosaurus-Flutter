@@ -133,7 +133,7 @@ class Token {
   }
 
   String _decodeBase64(String input) {
-    final base64Decoder = Base64Decoder();
+    final Base64Decoder base64Decoder = Base64Decoder();
 
     final int difference = input.length % 4;
     if (difference != 0) {
@@ -144,6 +144,9 @@ class Token {
   }
 
   String _joinCombined(String separator) {
+    if (this.namespace == null) {
+      return this.username;
+    }
     if (this.namespace == DefaultBrontosaurusNamespace.DEFAULT) {
       return this.username;
     }
