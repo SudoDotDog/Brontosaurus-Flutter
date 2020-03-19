@@ -67,6 +67,10 @@ class Token {
     return _body["email"];
   }
 
+  String get phone {
+    return _body["phone"];
+  }
+
   String get name {
     if (_body["displayName"]) {
       return _body["displayName"];

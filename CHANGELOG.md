@@ -29,3 +29,7 @@
 
 -   Add parse namespace combined feature
 -   Fix null namespace parse
+
+## 1.2.1
+
+-   Chore Add phone response
