@@ -63,6 +63,10 @@ class Token {
     return _body["displayName"];
   }
 
+  String get avatar {
+    return _body["avatar"];
+  }
+
   String get email {
     return _body["email"];
   }
