@@ -9,8 +9,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  flutter_webview_plugin: ^0.3.10+1
-  shared_preferences: ^0.5.6+1
+  flutter_webview_plugin: ^0.3.11
+  shared_preferences: ^0.5.7+2
 
 dev_dependencies:
   flutter_test:
