@@ -5,5 +5,9 @@
         "cupertino",
         "iphone",
         "webview"
-    ]
+    ],
+    "cSpell.enableFiletypes": [
+        "yaml"
+    ],
+    "cSpell.language": "en,en-US,en-GB"
 }

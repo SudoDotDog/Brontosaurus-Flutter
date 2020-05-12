@@ -33,3 +33,7 @@
 ## 1.2.1
 
 -   Chore Add phone response
+
+## 1.3.0
+
+-   Add avatar field to token
