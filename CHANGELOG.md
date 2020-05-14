@@ -37,3 +37,7 @@
 ## 1.3.0
 
 -   Add avatar field to token
+
+## 1.3.1
+
+-   Add has groups feature
