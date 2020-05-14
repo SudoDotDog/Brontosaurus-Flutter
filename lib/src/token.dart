@@ -32,7 +32,8 @@ class Token {
   }
 
   List<String> get groups {
-    return _body["groups"];
+    final List<dynamic> before = _body["groups"];
+    return before.map((dynamic each) => each.toString()).toList();
   }
 
   String get mint {
@@ -48,7 +49,8 @@ class Token {
   }
 
   List<String> get modifies {
-    return _body["modifies"];
+    final List<dynamic> before = _body["modifies"];
+    return before.map((dynamic each) => each.toString()).toList();
   }
 
   String get username {
@@ -96,14 +98,16 @@ class Token {
 
   List<String> get tags {
     if (_body["tags"] != null) {
-      return _body["tags"];
+      final List<dynamic> before = _body["tags"];
+      return before.map((dynamic each) => each.toString()).toList();
     }
     return <String>[];
   }
 
   List<String> get organizationTags {
     if (_body["organizationTags"] != null) {
-      return _body["organizationTags"];
+      final List<dynamic> before = _body["organizationTags"];
+      return before.map((dynamic each) => each.toString()).toList();
     }
     return <String>[];
   }
@@ -122,6 +126,16 @@ class Token {
 
   String get applicationKey {
     return _header["key"];
+  }
+
+  bool hasGroup(String group) {
+    final List<String> groups = this.groups;
+    for (final String each in groups) {
+      if (each == group) {
+        return true;
+      }
+    }
+    return false;
   }
 
   String getCombined() {
