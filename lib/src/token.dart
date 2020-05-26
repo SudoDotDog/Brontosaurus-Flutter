@@ -3,10 +3,6 @@ import 'dart:convert';
 import 'package:brontosaurus_flutter/src/declare.dart';
 
 class Token {
-  static Token create(String raw) {
-    return Token(raw);
-  }
-
   String _raw;
   Map<String, dynamic> _header;
   Map<String, dynamic> _body;
@@ -25,6 +21,10 @@ class Token {
     _signiture = splited[2];
     _header = jsonDecode(header);
     _body = jsonDecode(body);
+  }
+
+  factory Token.create(String raw) {
+    return Token(raw);
   }
 
   String get raw {
