@@ -4,9 +4,11 @@
         "WMXPY",
         "cupertino",
         "iphone",
+        "splited",
         "webview"
     ],
     "cSpell.enableFiletypes": [
+        "dart",
         "yaml"
     ],
     "cSpell.language": "en,en-US,en-GB"

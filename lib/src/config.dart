@@ -10,8 +10,8 @@ class Brontosaurus {
   }
 
   static Future<bool> init() async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    final String raw = prefs.getString('brontosaurus-token');
+    final SharedPreferences preferences = await SharedPreferences.getInstance();
+    final String raw = preferences.getString('brontosaurus-token');
     if (raw == null) {
       return false;
     }
@@ -22,13 +22,13 @@ class Brontosaurus {
   }
 
   static Future<void> store(String raw) async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setString('brontosaurus-token', raw);
+    final SharedPreferences preferences = await SharedPreferences.getInstance();
+    preferences.setString('brontosaurus-token', raw);
   }
 
   static Future<void> reset() async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.remove('brontosaurus-token');
+    final SharedPreferences preferences = await SharedPreferences.getInstance();
+    preferences.remove('brontosaurus-token');
     instance().removeToken();
   }
 

@@ -1,115 +1,110 @@
 import 'dart:convert';
 
 import 'package:brontosaurus_flutter/src/declare.dart';
+import 'package:brontosaurus_flutter/src/entity/body.dart';
+import 'package:brontosaurus_flutter/src/entity/header.dart';
+import 'package:brontosaurus_flutter/src/util.dart';
 
 class Token {
-  String _raw;
-  Map<String, dynamic> _header;
-  Map<String, dynamic> _body;
-  String _signiture;
+  final String raw;
+  final BrontosaurusHeader header;
+  final BrontosaurusBody body;
+  final String signature;
 
-  Token(String raw) {
-    _raw = raw;
+  Token({
+    this.raw,
+    this.header,
+    this.body,
+    this.signature,
+  });
+
+  factory Token.create(String raw) {
     final List<String> splited = raw.split('.');
 
     if (splited.length != 3) {
       throw "Invalid Token";
     }
 
-    final header = _decodeBase64(splited[0]);
-    final body = _decodeBase64(splited[1]);
-    _signiture = splited[2];
-    _header = jsonDecode(header);
-    _body = jsonDecode(body);
-  }
+    final String rawHeader = decodeBase64(splited[0]);
+    final String rawBody = decodeBase64(splited[1]);
+    final String signature = splited[2].toString();
 
-  factory Token.create(String raw) {
-    return Token(raw);
-  }
+    final BrontosaurusHeader header =
+        BrontosaurusHeader.fromMap(jsonDecode(rawHeader));
+    final BrontosaurusBody body = BrontosaurusBody.fromMap(jsonDecode(rawBody));
 
-  String get raw {
-    return _raw;
+    return Token(
+      raw: raw,
+      header: header,
+      body: body,
+      signature: signature,
+    );
   }
 
   List<String> get groups {
-    final List<dynamic> before = _body["groups"];
-    return before.map((dynamic each) => each.toString()).toList();
+    return this.body.groups;
   }
 
   String get mint {
-    return _body["mint"];
+    return this.body.mint;
   }
 
   Map<String, dynamic> get infos {
-    return _body["infos"];
+    return this.body.infos;
   }
 
   Map<String, dynamic> get beacons {
-    return _body["beacons"];
+    return this.body.beacons;
   }
 
   List<String> get modifies {
-    final List<dynamic> before = _body["modifies"];
-    return before.map((dynamic each) => each.toString()).toList();
+    return this.body.modifies;
   }
 
   String get username {
-    return _body["username"];
+    return this.body.username;
   }
 
   String get namespace {
-    return _body["namespace"];
+    return this.body.namespace;
   }
 
   String get displayName {
-    return _body["displayName"];
+    return this.body.displayName;
   }
 
   String get avatar {
-    return _body["avatar"];
+    return this.body.avatar;
   }
 
   String get email {
-    return _body["email"];
+    return this.body.email;
   }
 
   String get phone {
-    return _body["phone"];
+    return this.body.phone;
   }
 
   String get name {
-    if (_body["displayName"]) {
-      return _body["displayName"];
+    if (this.body.displayName is String) {
+      return this.body.displayName;
     }
     return this.username;
   }
 
-  Map<String, dynamic> get header {
-    return _header;
-  }
-
-  String get signature {
-    return _signiture;
-  }
-
   String get organization {
-    return _body["organization"];
+    return this.body.organization;
   }
 
   List<String> get tags {
-    if (_body["tags"] != null) {
-      final List<dynamic> before = _body["tags"];
-      return before.map((dynamic each) => each.toString()).toList();
-    }
-    return <String>[];
+    return this.body.tags;
   }
 
   List<String> get organizationTags {
-    if (_body["organizationTags"] != null) {
-      final List<dynamic> before = _body["organizationTags"];
-      return before.map((dynamic each) => each.toString()).toList();
+    if (this.body.organizationTags == null) {
+      return [];
     }
-    return <String>[];
+    return this.body.organizationTags;
   }
 
   List<String> get combineTags {
@@ -117,20 +112,19 @@ class Token {
   }
 
   int get expireAt {
-    return _header["expireAt"];
+    return this.header.expireAt;
   }
 
   int get issuedAt {
-    return _header["issuedAt"];
+    return this.header.issuedAt;
   }
 
   String get applicationKey {
-    return _header["key"];
+    return this.header.key;
   }
 
   bool hasGroup(String group) {
-    final List<String> groups = this.groups;
-    for (final String each in groups) {
+    for (final String each in this.groups) {
       if (each == group) {
         return true;
       }
@@ -152,17 +146,6 @@ class Token {
 
   bool validate() {
     return DateTime.now().millisecondsSinceEpoch < this.expireAt;
-  }
-
-  String _decodeBase64(String input) {
-    final Base64Decoder base64Decoder = Base64Decoder();
-
-    final int difference = input.length % 4;
-    if (difference != 0) {
-      return String.fromCharCodes(
-          base64Decoder.convert(input + "=" * (4 - difference)));
-    }
-    return String.fromCharCodes(base64Decoder.convert(input));
   }
 
   String _joinCombined(String separator) {
