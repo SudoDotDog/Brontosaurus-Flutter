@@ -41,3 +41,9 @@
 ## 1.3.1
 
 -   Add has groups feature
+
+## 1.4.0
+
+-   Refactor Header Body pattern
+-   Use class constructors factory
+-   Add attempt field
