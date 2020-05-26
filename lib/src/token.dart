@@ -41,6 +41,10 @@ class Token {
     );
   }
 
+  String get attempt {
+    return this.header.attempt;
+  }
+
   List<String> get groups {
     return this.body.groups;
   }

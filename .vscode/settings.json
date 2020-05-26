@@ -5,6 +5,7 @@
         "cupertino",
         "iphone",
         "splited",
+        "useragent",
         "webview"
     ],
     "cSpell.enableFiletypes": [

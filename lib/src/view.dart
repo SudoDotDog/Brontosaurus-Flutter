@@ -61,7 +61,14 @@ class BrontosaurusViewStates extends State<BrontosaurusView> {
   }
 
   String _buildUrl() {
-    return widget.server + '?key=' + widget.application + '&cb=js://redirect';
+    final String platform = '${Platform.operatingSystem}@${Platform.version}';
+
+    return widget.server +
+        '?key=' +
+        widget.application +
+        '&cb=js://redirect' +
+        '&useragent=Brontosaurus-Flutter' +
+        '&platform=$platform';
   }
 
   bool _isAndroid() {
