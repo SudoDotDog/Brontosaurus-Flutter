@@ -1,3 +1,5 @@
+import 'package:numeric/numeric.dart';
+
 class BrontosaurusHeader {
   final String algorithm;
   final String alg;
@@ -21,6 +23,10 @@ class BrontosaurusHeader {
     return BrontosaurusHeader(
       algorithm: map['algorithm'].toString(),
       alg: map['alg'].toString(),
+      attempt: map['attempt'].toString(),
+      expireAt: tryParseNullInt(map['expireAt']),
+      issuedAt: tryParseNullInt(map['issuedAt']),
+      key: map['key'].toString(),
     );
   }
 }
